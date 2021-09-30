@@ -1,0 +1,7 @@
+-- H.map("n", "<Leader>gs", ":tab Git<CR>")                   -- `git status` in a new tab to save screen real estate
+-- H.map("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")            -- open a split diffing the current file
+-- H.map("n", "<Leader>gp", "<cmd>Git pull<CR>")              -- pull
+-- H.map("n", "<Leader>rh", "<cmd>Gitsigns reset_hunk<CR>")   -- reset hunk under cursor
+-- H.map("n", "<Leader>gn", "<cmd>Gitsigns next_hunk<CR>zz")  -- move to next hunk and center it
+-- H.map("n", "<Leader>gp", "<cmd>Gitsigns prev_hunk<CR>zz")  -- move to prev hunk and center it
+-- H.map("n", "="         , "<cmd>Gitsigns preview_hunk<CR>") -- diff of hunk under cursor
