@@ -1,7 +1,7 @@
 
 H.map('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').file_browser()<CR>]], opts)
 
-H.map('n', '<leader>fF', [[<cmd>lua require('telescope.builtin').find_files({previewer = true})<CR>]], opts)
+H.map('n', '<leader>fF', [[<cmd>lua require('telescope.builtin').find_files()<CR>]], opts)
 
 
 H.map('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], opts)
@@ -20,7 +20,7 @@ H.map("n", "<Leader>fr", [[<cmd>lua require('telescope.builtin').lsp_references(
 H.map("n", "<Leader>gc", [[<cmd>lua require('telescope.builtin').git_branches()<CR>]], opts)
 
 -- checkout commits; <CR> to checkout, <C-r>[m, s, h] to reset [mixed, soft, hard]
-H.map("n", "<Leader>re", [[<cmd>lua require<('telescope.builtin').git_commits()<CR>]], opts)
+H.map("n", "<Leader>re", [[<cmd>lua require('telescope.builtin').git_commits()<CR>]], opts)
 
 H.map("n", "<Leader>co", [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]], opts)
 
