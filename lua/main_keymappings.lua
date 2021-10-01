@@ -26,7 +26,7 @@ H.map('v', '<', '<gv')
 -- Move next / prev buffer
 H.map('n', '<leader>n', ':bnext<CR>', opts)
 H.map('n', '<leader>p', ':bprev<CR>', opt)
-H.map('n', '<leader>q', ':bd!<CR>', opts)
+H.map('n', '<leader>q', ':bd<CR>')
 
 -- Move line up and down in NORMAL and VISUAL modes
 -- Reference: https://vim.fandom.com/wiki/Moving_lines_up_or_down

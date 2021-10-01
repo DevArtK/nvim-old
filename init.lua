@@ -16,6 +16,7 @@ require('settings/neoscroll')			-- Smooth scroll setup
 require('settings/cmp')					-- Completetion setup
 require('settings/autopairs')			-- Auto pairs setup
 require('settings/colorizer')			-- Hex color visualizer setup
+require('settings/orgmode')				-- Orgmode setup
 --require('settings/treesitter_context') -- Function / Class context under buffer line (doesn't need to be here ?)
 
 

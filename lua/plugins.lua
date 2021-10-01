@@ -45,9 +45,9 @@ require('packer').startup(function(use)
 		requires = {
 			{ 'p00f/nvim-ts-rainbow' },
 			{ 'romgrk/nvim-treesitter-context' },
+			{ 'p00f/nvim-ts-rainbow' },
 			-- Swear this after messes with the setup of
 			-- { 'nvim-treesitter/nvim-treesitter-textobjects' },
-			-- { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
 			-- { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
 			-- { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
 			-- { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
@@ -116,9 +116,10 @@ require('packer').startup(function(use)
 				char_highlight_list            = {'IndentBlanklineIndent'}
 			})
 		end,
-}
+	}
 	-- Auto open / close tags
 	use 'windwp/nvim-autopairs'
+
 
 	-- Git Info
 	use {
@@ -138,7 +139,7 @@ require('packer').startup(function(use)
 				numhl = true
 			})
 		end
-}
+	}
 	-- Gruvbox-flat
 	use 'eddyekofo94/gruvbox-flat.nvim'
 	use 'sainnhe/gruvbox-material'
@@ -157,6 +158,8 @@ require('packer').startup(function(use)
 		'noib3/cokeline.nvim',
 		requires = 'kyazdani42/nvim-web-devicons', -- If you want devicons
 	}
+
+	use 'kristijanhusak/orgmode.nvim'
 
 
 	-- Which key helps with finding keymaps

@@ -25,6 +25,7 @@ cmp.setup({
 		{ name = 'path' },
 		{ name = 'luasnip' },
 		{ name = 'buffer' },
+		{ name = 'orgmode' },
 
 		-- For vsnip user.
 		-- { name = 'vsnip' },
