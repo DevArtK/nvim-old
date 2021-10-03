@@ -1,3 +1,5 @@
+local handlers = vim.lsp.handlers
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
 
@@ -5,7 +7,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
     virtual_text = {
       spacing = 4,	-- Enable virtual text, override spacing to 4
-      prefix = '~',
+      prefix = '',
+      --prefix = '~',
+	  severity_limit = "Warning"
     },
     -- Use a function to dynamically turn signs off
     -- and on, using buffer local variables
@@ -27,16 +31,17 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --     {text = "", texthl = "LspDiagnosticsError"})
 
 H.fn.sign_define("LspDiagnosticsSignError",
-    {text = "", texthl = "Red"})
+    {text = "", texthl = "LspDiagnosticsDefaultError"})
 
 H.fn.sign_define("LspDiagnosticsSignWarning",
-    {text = "", texthl = "Yellow"})
+    {text = "", texthl = "LspDiagnosticsDefaultWarning"})
 
 H.fn.sign_define("LspDiagnosticsSignInformation",
-    {text = "", texthl = "Blue"})
+    {text = "", texthl = "LspDiagnosticsDefaultInformation"})
 
 H.fn.sign_define("LspDiagnosticsSignHint",
-    {text = "", texthl = "Aqua"})
+    {text = "", texthl = "LspDiagnosticsDefaultHint"})
+
 
 -- =======
 -- DEFAULT

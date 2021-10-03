@@ -17,6 +17,7 @@ require('settings/cmp')					-- Completetion setup
 require('settings/autopairs')			-- Auto pairs setup
 require('settings/colorizer')			-- Hex color visualizer setup
 require('settings/orgmode')				-- Orgmode setup
+require('settings/dap')					-- Settings for DAP
 --require('settings/treesitter_context') -- Function / Class context under buffer line (doesn't need to be here ?)
 
 
@@ -24,6 +25,7 @@ require('settings/orgmode')				-- Orgmode setup
 require('keymappings/nvim_tree')		-- Keybindings for NvimTree
 require('keymappings/telescope')		-- Keybindings for telescope
 require('keymappings/kommentary')		-- Keybindings for Kommentary
+require('keymappings/dap')				-- Keybindings for DAP
 
 
 

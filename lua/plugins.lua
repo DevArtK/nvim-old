@@ -159,6 +159,7 @@ require('packer').startup(function(use)
 		requires = 'kyazdani42/nvim-web-devicons', -- If you want devicons
 	}
 
+
 	use 'kristijanhusak/orgmode.nvim'
 
 
@@ -168,5 +169,10 @@ require('packer').startup(function(use)
 		requires = {'liuchengxu/vim-which-key'},
 	}
 
+
+	-- DAP Specific
+	use 'mfussenegger/nvim-dap'
+	use 'nvim-telescope/telescope-dap.nvim'
+	use 'rcarriga/nvim-dap-ui'
 
 end)
