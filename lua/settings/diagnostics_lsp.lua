@@ -26,16 +26,16 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- vim.fn.sign_define("LspDiagnosticsSignError",
 --     {text = "", texthl = "LspDiagnosticsError"})
 
-vim.fn.sign_define("LspDiagnosticsSignError",
+H.fn.sign_define("LspDiagnosticsSignError",
     {text = "", texthl = "Red"})
 
-vim.fn.sign_define("LspDiagnosticsSignWarning",
+H.fn.sign_define("LspDiagnosticsSignWarning",
     {text = "", texthl = "Yellow"})
 
-vim.fn.sign_define("LspDiagnosticsSignInformation",
+H.fn.sign_define("LspDiagnosticsSignInformation",
     {text = "", texthl = "Blue"})
 
-vim.fn.sign_define("LspDiagnosticsSignHint",
+H.fn.sign_define("LspDiagnosticsSignHint",
     {text = "", texthl = "Aqua"})
 
 -- =======
