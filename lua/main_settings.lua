@@ -119,7 +119,10 @@ cmd[[autocmd FileType markdown let g:indentLine_enabled=0]]
 
 -- THEME --
 opt.background = 'dark'
-opt.termguicolors = true -- Truecolor support
+vim.go.termguicolors = true
+--opt.termguicolors = true -- Truecolor support
+vim.go.t_Co = "256"
+vim.go.t_ut = ""
 cmd[[syntax on]]
 
 vim.g.gruvbox_material_background = 'hard'

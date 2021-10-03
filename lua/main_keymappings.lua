@@ -41,6 +41,9 @@ H.map('n', '<C-j>', '<C-w>j', opts)
 H.map('n', '<C-k>', '<C-w>k', opts)
 H.map('n', '<C-l>', '<C-w>l', opts)
 
+H.map('i', '<c-j>', 'pumvisible() ? "<c-n>" : "<c-j>"', { expr = true })
+H.map('i', '<c-k>', 'pumvisible() ? "<c-p>" : "<c-k>"', { expr = true })
+
 -- TODO : Figure out a good mapping for creating splits -- Currently using NvimTree / telescope
 -- Copying the vscode behaviour of making tab splits
 --H.map('n', '<C-//>', ':vsplit<CR>')
