@@ -40,6 +40,12 @@ require('packer').startup(function(use)
 	-- Pop-up
 	use 'nvim-lua/popup.nvim'
 
+	-- LSP Server Installer
+	use {
+		'neovim/nvim-lspconfig',
+		'williamboman/nvim-lsp-installer',
+	}
+
 	-- Treesitter
 	use ({'nvim-treesitter/nvim-treesitter',
 		requires = {
