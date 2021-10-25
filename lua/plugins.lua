@@ -27,6 +27,7 @@ vim.cmd [[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]] -- R
 require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
+
 	-- LspConfig
 	use({
 		'neovim/nvim-lspconfig',
@@ -41,10 +42,10 @@ require('packer').startup(function(use)
 	use 'nvim-lua/popup.nvim'
 
 	-- LSP Server Installer
-	use {
-		'neovim/nvim-lspconfig',
-		'williamboman/nvim-lsp-installer',
-	}
+	-- use {
+	-- 	'williamboman/nvim-lsp-installer',
+	-- }
+
 
 	-- Treesitter
 	use ({'nvim-treesitter/nvim-treesitter',
@@ -178,8 +179,14 @@ require('packer').startup(function(use)
 
 	-- DAP Specific
 	use 'mfussenegger/nvim-dap'
+	use 'mfussenegger/nvim-jdtls'
 	use 'nvim-telescope/telescope-dap.nvim'
 	use 'rcarriga/nvim-dap-ui'
 
+	use 'onsails/lspkind-nvim'
+	use 'tjdevries/colorbuddy.nvim'
+
+
+	use 'simrat39/rust-tools.nvim'
 
 end)

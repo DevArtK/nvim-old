@@ -4,9 +4,9 @@ local g = vim.g				-- Global
 local wo = vim.wo			-- Window Options
 local bo = vim.bo			-- Buffer Options
 
-local fn = vim.fn			-- Call vim functions
-local cmd = vim.cmd			-- Execute vim command
-local exec = vim.api.nvim_exec  -- Execute vimscript
+local fn = vim.fn					-- Call vim functions
+local cmd = vim.cmd					-- Execute vim command
+local exec = vim.api.nvim_exec		-- Execute vimscript
 
 
 cmd('filetype plugin indent on')
@@ -125,16 +125,18 @@ vim.go.t_Co = "256"
 vim.go.t_ut = ""
 cmd[[syntax on]]
 
-vim.g.gruvbox_material_background = 'hard'
-cmd('colorscheme gruvbox-material' )
+-- vim.g.gruvbox_material_background = 'hard'
+-- cmd('colorscheme gruvbox_material' )
+vim.g.gruvbox_flat_style = 'hard' -- Darkest mode, darker mode = 'dark'
+cmd[[colorscheme gruvbox-flat]]
+-- g.gruvbox_colors = { hint = "orange", error = "#ff0000" }
+
 cmd[[au VimEnter * highlight ColorColumn guibg=#282828]]
 
 -- -----------------------------
 -- Unused / Not configured pile
 -- -----------------------------
--- vim.g.gruvbox_flat_style = 'hard' -- Darkest mode, darker mode = 'dark'
 -- cmd([[colorscheme gruvbox-flat]])
--- g.gruvbox_colors = { hint = "orange", error = "#ff0000" }
 
 -- opt.greprg = 'rg --vimgrep --smart-case --no-heading'   -- Search with ripgrep
 -- vim.cmd [[ set grepprg=rg\ --vimgrep ]]

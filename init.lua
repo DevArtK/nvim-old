@@ -3,7 +3,7 @@ G = {}
 
 require('plugins')						-- Packer plugin installs
 require('settings/lspconf')				-- nvim_lsp.setup()'s
-require('settings/lsp_installer')		-- Lsp installer
+-- require('settings/lsp_installer')		-- Lsp installer
 require('main_keymappings')				-- Plugin specific keymaps
 require('main_settings')				-- Base vim/nvim settings 'set xxx'
 
