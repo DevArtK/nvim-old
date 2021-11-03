@@ -18,13 +18,10 @@ local on_attach = function(_, bufnr)
 	-- { border = "single" })
 
 	-- NEW
-	-- local popup_opts = { border = 'rounded', max_width = 80 }
-	-- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, popup_opts)
-	-- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, popup_opts)
+	local popup_opts = { border = 'rounded', max_width = 80 }
+	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, popup_opts)
+	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, popup_opts)
 
-	-- TODO : repalce long commands with short variables
-	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
 	if _.resolved_capabilities.document_formatting then
 		vim.api.nvim_command [[augroup Format]]
@@ -33,7 +30,11 @@ local on_attach = function(_, bufnr)
 		vim.api.nvim_command [[augroup END]]
 	end
 
+	-- TODO : repalce long commands with short variables
+	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 	local opts = { noremap = true, silent = true }
+
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -53,13 +54,15 @@ local on_attach = function(_, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = { border = "single" })<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = { border = "single" })<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>qf', [[<cmd>lua require('telescope.builtin').quickfix()<CR>]], opts)
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>re', [[<cmd>lua require('telescope.builtin').registers()<CR>]], opts)
 
 	--vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- vim.cmd [[nnoremap <buffer><silent> <C-space> :lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" })<CR>]]
 -- vim.cmd [[nnoremap <buffer><silent> ]g :lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>]]
@@ -225,6 +228,15 @@ nvim_lsp.tsserver.setup {
 	--root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
 }
 
+nvim_lsp.jsonls.setup {
+	commands = {
+		Format = {
+			function()
+				vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+			end
+		}
+	}
+}
 nvim_lsp.dockerls.setup {
 	-- on_attach = on_attach,
 	-- capabilities = capabilities,

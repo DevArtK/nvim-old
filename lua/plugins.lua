@@ -98,10 +98,11 @@ require('packer').startup(function(use)
 			{ 'hrsh7th/cmp-nvim-lsp' },
 			{ 'hrsh7th/cmp-buffer' },
 			{ 'hrsh7th/cmp-path' },
-			{ 'L3MON4D3/LuaSnip' },
-			{ 'saadparwaiz1/cmp_luasnip' }
 		}
 	})
+
+	use 'L3MON4D3/LuaSnip'
+	use 'saadparwaiz1/cmp_luasnip'
 
 
 	-- Comments
@@ -186,7 +187,8 @@ require('packer').startup(function(use)
 	use 'onsails/lspkind-nvim'
 	use 'tjdevries/colorbuddy.nvim'
 
-
 	use 'simrat39/rust-tools.nvim'
+
+	use "tversteeg/registers.nvim"
 
 end)

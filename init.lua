@@ -29,6 +29,7 @@ require('keymappings/kommentary')		-- Keybindings for Kommentary
 require('keymappings/dap')				-- Keybindings for DAP
 
 
+require('settings/snippets')
 
 -- vim.lsp.set_log_level("debug")
 
