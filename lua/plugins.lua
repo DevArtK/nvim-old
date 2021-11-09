@@ -110,6 +110,7 @@ require('packer').startup(function(use)
 
 	use 'L3MON4D3/LuaSnip'
 	use 'saadparwaiz1/cmp_luasnip'
+	use {'SirVer/ultisnips', requires = {"honza/vim-snippets", "quangnguyen30192/cmp-nvim-ultisnips"}, config = "require('settings.ultisnips')", after = 'nvim-cmp'}
 
 
 	-- Comments
@@ -198,4 +199,5 @@ require('packer').startup(function(use)
 
 	use "tversteeg/registers.nvim"
 
+	use 'sindrets/diffview.nvim'
 end)

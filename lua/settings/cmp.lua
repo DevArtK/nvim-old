@@ -80,6 +80,7 @@ cmp.setup({
 	sources = {
 		-- { name = "gh_issues" },
 		{ name = 'luasnip' },
+		{ name = 'ultisnips' },
 		{ name = 'buffer' },
 		{ name = 'nvim_lsp' },
 		{ name = 'path' },
@@ -110,7 +111,7 @@ cmp.setup({
 		expand = function(args)
 			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
-			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+			vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 			-- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
 		end,
 	},

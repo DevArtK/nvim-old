@@ -6,7 +6,7 @@ g.maplocalleader = '\\'
 
 local opts = { noremap = true, silent = true }
 -- Test maps
-H.map('i', 'jj', '<Esc>')
+H.map('i', 'jk', '<Esc>')
 
 -- Map ; to :
 H.map('n', ';', ':')
@@ -23,10 +23,15 @@ H.map("n", "N", "Nzz")    -- Center jumping to prev match
 H.map('v', '>', '>gv')
 H.map('v', '<', '<gv')
 
+-- Save file with Ctrl + s
+H.map("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
+H.map("i", "<C-s>", "<ESC> :w<CR>", { noremap = true, silent = true })
+
 -- Move next / prev buffer
 H.map('n', '<leader>n', ':bnext<CR>', opts)
-H.map('n', '<leader>p', ':bprev<CR>', opt)
+H.map('n', '<leader>p', ':bprev<CR>', opts)
 H.map('n', '<leader>q', ':bd<CR>')
+H.map("n", "<S-q>", ":bd<CR>", opts)
 
 -- Move line up and down in NORMAL and VISUAL modes
 -- Reference: https://vim.fandom.com/wiki/Moving_lines_up_or_down
@@ -42,7 +47,20 @@ H.map('n', '<C-k>', '<C-w>k', opts)
 H.map('n', '<C-l>', '<C-w>l', opts)
 
 H.map('i', '<c-j>', 'pumvisible() ? "<c-n>" : "<c-j>"', { expr = true })
-H.map('i', '<c-k>', 'pumvisible() ? "<c-p>" : "<c-k>"', { expr = true })
+
+-- Don't yank on delete char
+H.map("n", "x", '"_x', { noremap = true, silent = true })
+H.map("n", "X", '"_X', { noremap = true, silent = true })
+H.map("v", "x", '"_x', { noremap = true, silent = true })
+H.map("v", "X", '"_X', { noremap = true, silent = true })H.map('i', '<c-k>', 'pumvisible() ? "<c-p>" : "<c-k>"', { expr = true })
+
+-- Open links under cursor in browser with gx
+if vim.fn.has('macunix') == 1 then
+  vim.api.nvim_set_keymap("n", "gx", "<cmd>silent execute '!open ' . shellescape('<cWORD>')<CR>", { silent = true })
+else
+  vim.api.nvim_set_keymap("n", "gx", "<cmd>silent execute '!xdg-open ' . shellescape('<cWORD>')<CR>", { silent = true })
+end
+
 
 -- TODO : Figure out a good mapping for creating splits -- Currently using NvimTree / telescope
 -- Copying the vscode behaviour of making tab splits
