@@ -12,18 +12,31 @@ lspkind.init()
 -- 	{ noremap = true }
 -- )
 
+local has_words_before = function()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 cmp.setup({
 	mapping = {
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.close(),
+
+		-- ['<C-Space>'] = cmp.mapping.complete(),
+		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+
+		-- ['<C-e>'] = cmp.mapping.close(),
+		['<C-e>'] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
 
 		['<c-y>'] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
+			-- behavior = cmp.ConfirmBehavior.Replace,
 			select = true
 		}),
+
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
 
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -66,10 +79,11 @@ cmp.setup({
 
 	sources = {
 		-- { name = "gh_issues" },
-		{ name = 'nvim_lsp' },
-		{ name = 'buffer' },
-		{ name = 'path' },
 		{ name = 'luasnip' },
+		{ name = 'buffer' },
+		{ name = 'nvim_lsp' },
+		{ name = 'path' },
+		{ name = 'npm', keyword_length = 4 },
 		{ name = 'orgmode' },
 
 		-- For vsnip user.
@@ -83,7 +97,7 @@ cmp.setup({
 			with_text = true,
 			menu = {
 				buffer = "[buf]",
-				nvim_lsp = "[LSP]",
+				nvim_lsp = "[lsp]",
 				nvim_lua = "[api]",
 				path = "[path]",
 				luasnip = "[snip]",
@@ -102,13 +116,9 @@ cmp.setup({
 	},
 
 	experimental = {
-		native_menu = true,
-		-- ghost_text = true,
+		-- native_menu = true,
+		ghost_text = true,
 	},
 })
 
-local has_words_before = function()
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
 

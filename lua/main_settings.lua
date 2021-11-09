@@ -63,7 +63,7 @@ opt.updatetime = 50				-- Accelerate refresh time of buffers
 
 opt.scrolloff = 8				-- Start scrolling when within 8 lines near top/bottom
 opt.switchbuf = 'useopen'		-- use already open window if possible
---opt.textwidth = 90
+opt.textwidth = 0
 opt.ignorecase = true			-- Ignore case
 opt.joinspaces = false			-- No double spaces with join
 opt.list = false				-- Show some invisible characters
