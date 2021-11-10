@@ -81,87 +81,6 @@ else
 	print("Unsupported system for sumneko")
 end
 
--- local HOME = vim.fn.expand("$HOME")
-
--- -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
--- -- local sumneko_root_path = "/usr/local/sbin/lua-language-server"
--- local sumneko_root_path = HOME .. "/config/nvim/servers/lua-language-server"
--- local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
-
--- -- local runtime_path = vim.split(package.path, ';')
--- -- table.insert(runtime_path, 'lua/?.lua')
--- -- table.insert(runtime_path, 'lua/?/init.lua')
-
--- nvim_lsp.sumneko_lua.setup {
--- 	cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
--- 	-- on_attach = on_attach,
--- 	-- capabilities = capabilities,
--- 	settings = {
--- 		Lua = {
--- 			runtime = {
--- 				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
--- 				version = 'LuaJIT',
--- 				-- Setup your lua path
--- 				--path = runtime_path,
--- 				path = vim.split(package.path, ';'),
--- 			},
--- 			diagnostics = {
--- 				-- Get the language server to recognize the `vim` global
--- 				globals = { 'vim' },
--- 			},
--- 			workspace = {
--- 				-- Make the server aware of Neovim runtime files
--- 				-- library = vim.api.nvim_get_runtime_file('', true),
--- 				library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
--- 			},
--- 			-- Do not send telemetry data containing a randomized but unique identifier
--- 			telemetry = {
--- 				enable = false,
--- 			},
--- 		},
--- 	},
--- }
-
-
--- USER = vim.fn.expand('$USER')
-
--- local sumneko_root_path = ""
--- local sumneko_binary = ""
-
--- if vim.fn.has("mac") == 1 then
---     sumneko_root_path = "/Users/" .. USER .. "/.config/nvim/servers/lua-language-server"
---     sumneko_binary = "/Users/" .. USER .. "/.config/nvim/servers/lua-language-server/bin/macOS/lua-language-server"
--- elseif vim.fn.has("unix") == 1 then
---     sumneko_root_path = "/home/" .. USER .. "/.config/nvim/servers/lua-language-server"
---     sumneko_binary = "/home/" .. USER .. "/.config/nvim/servers/lua-language-server/bin/Linux/lua-language-server"
--- else
---     print("Unsupported system for sumneko")
--- end
-
--- require'lspconfig'.sumneko_lua.setup {
---     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
---     settings = {
---         Lua = {
---             runtime = {
---                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---                 version = 'LuaJIT',
---                 -- Setup your lua path
---                 path = vim.split(package.path, ';')
---             },
---             diagnostics = {
---                 -- Get the language server to recognize the `vim` global
---                 globals = {'vim'}
---             },
---             workspace = {
---                 -- Make the server aware of Neovim runtime files
---                 library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
---             }
---         }
---     }
--- }
-
-
-
 
 local system_name
 if vim.fn.has("mac") == 1 then
@@ -208,13 +127,26 @@ require'lspconfig'.sumneko_lua.setup {
   },
 }
 
-
+local tsscapabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+tsscapabilities.textDocument.completion.completionItem.snippetSupport = true
+tsscapabilities.textDocument.completion.completionItem.preselectSupport = true
+tsscapabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+tsscapabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+tsscapabilities.textDocument.completion.completionItem.deprecatedSupport = true
+tsscapabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+tsscapabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+tsscapabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = {
+		'documentation',
+		'detail',
+		'additionalTextEdits',
+	}
+}
 
 
 
 nvim_lsp.tsserver.setup {
-	-- on_attach = on_attach,
-	-- capabilities = capabilities,
+	capabilities = tsscapabilities,
 	cmd = { 'typescript-language-server', '--stdio'},
 	filetypes = {
 		"javascript",
@@ -225,6 +157,55 @@ nvim_lsp.tsserver.setup {
 	init_options = {
 		hostInfo = "neovim"
 	},
+	on_attach = function(client, bufnr)
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+
+		local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+		buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+		ts_utils.setup {
+			debug = false,
+			disable_commands = false,
+			enable_import_on_completion = true,
+			import_all_timeout = 5000, -- ms
+
+			-- eslint
+			eslint_enable_code_actions = false,
+			eslint_enable_disable_comments = false,
+			eslint_bin = 'eslint_d',
+			eslint_config_fallback = nil,
+			eslint_enable_diagnostics = false,
+			eslint_opts = {
+				-- diagnostics_format = "#{m} [#{c}]",
+				condition = function(utils)
+					return utils.root_has_file(".eslintrc.js")
+				end,
+			},
+
+			-- formatting
+			enable_formatting = false,
+			formatter = 'prettier_d_slim',
+			formatter_config_fallback = nil,
+
+			-- parentheses completion
+			-----------
+			complete_parens = true,
+			signature_help_in_parens = true,
+
+			-- update imports on file move
+			update_imports_on_move = true,
+			require_confirmation_on_move = true,
+			watch_dir = nil,
+
+			-- filter diagnostics
+			filter_out_diagnostics_by_severity = { "hint" },
+			filter_out_diagnostics_by_code = {},
+		}
+
+		ts_utils.setup_client(client)
+	end
+
 	--root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
 }
 

@@ -53,12 +53,12 @@ require('packer').startup(function(use)
 			{ 'p00f/nvim-ts-rainbow' },
 			{ 'romgrk/nvim-treesitter-context' },
 			{ 'p00f/nvim-ts-rainbow' },
+			{ 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
+			{ 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' }
 			-- Swear this after messes with the setup of
 			-- { 'nvim-treesitter/nvim-treesitter-textobjects' },
 			-- { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
 			-- { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
-			-- { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
-			-- { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
 
 		}
 	})
@@ -75,10 +75,45 @@ require('packer').startup(function(use)
 
 
 	-- Lua Tree
-	use {
-		'kyazdani42/nvim-tree.lua',
-	}
+	use 'kyazdani42/nvim-tree.lua'
 
+	-- Toggle Terminal
+	use "akinsho/toggleterm.nvim"
+
+	-- Trouble - Diagnositcs List
+	use {
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("trouble").setup {
+				action_keys = { -- key mappings for actions in the trouble list
+					close       = "q", -- close the list
+					refresh     = "r", -- manually refresh
+					jump        = "<cr>", -- jump to the diagnostic or open / close folds
+					toggle_mode = "m", -- toggle between "workspace" and "document" mode
+					close_folds = "zM", -- close all folds
+					cancel      = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
+					open_folds  = "zR", -- open all folds
+					previous    = "k", -- preview item
+					next        = "j" -- next item
+				},
+				indent_lines = true, -- add an indent guide below the fold icons
+				auto_open    =  false, -- automatically open the list when you have diagnostics
+				auto_close   =  true, -- automatically close the list when you have no diagnostics
+				signs = {
+					-- icons / text used for a diagnostic
+					error = "",
+					warning = "",
+					hint = "",
+					information = "",
+					other = "﫠"
+				}
+			}
+		end
+}
+
+	-- Peek Lines -- Settings in settings/nvim_tree
+	use 'nacro90/numb.nvim'
 
 	-- Web-Dev Icons
 	use 'kyazdani42/nvim-web-devicons'
@@ -87,7 +122,8 @@ require('packer').startup(function(use)
 	-- Colorizer
 	use {
 		'norcalli/nvim-colorizer.lua',
-		run = function() require('plugins/colorizer').setup()
+		run = function()
+			require('plugins/colorizer').setup()
 		end
 	}
 
@@ -114,7 +150,7 @@ require('packer').startup(function(use)
 
 
 	-- Comments
-	use 'b3nj5m1n/kommentary'
+	use {'b3nj5m1n/kommentary'}
 
 
 	-- Indent Blank Line Scope Guides
@@ -161,13 +197,9 @@ require('packer').startup(function(use)
 	use 'sainnhe/gruvbox-material'
 	use 'karb94/neoscroll.nvim'
 
-	-- Lualine Status Line
 	use {
-		'hoob3rt/lualine.nvim',
-		requires = {
-			'kyazdani42/nvim-web-devicons',
-			opt = true
-		},
+		'nvim-lualine/lualine.nvim',
+		requires = {'kyazdani42/nvim-web-devicons', opt = true}
 	}
 
 	use {
@@ -180,10 +212,13 @@ require('packer').startup(function(use)
 
 
 	-- Which key helps with finding keymaps
-	use {
-		'AckslD/nvim-whichkey-setup.lua',
-		requires = {'liuchengxu/vim-which-key'},
-	}
+	use "folke/which-key.nvim"
+
+
+	-- use {
+	-- 	'AckslD/nvim-whichkey-setup.lua',
+	-- 	requires = {'liuchengxu/vim-which-key'},
+	-- }
 
 
 	-- DAP Specific
@@ -200,4 +235,7 @@ require('packer').startup(function(use)
 	use "tversteeg/registers.nvim"
 
 	use 'sindrets/diffview.nvim'
+	use 'mbbill/undotree'
+
+	use 'mattn/emmet-vim'
 end)

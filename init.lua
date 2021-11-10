@@ -19,6 +19,11 @@ require('settings/autopairs')			-- Auto pairs setup
 require('settings/colorizer')			-- Hex color visualizer setup
 require('settings/orgmode')				-- Orgmode setup
 require('settings/dap')					-- Settings for DAP
+require('settings/toggle_term')			-- Toggle Term Setup
+require('settings/which_key')			-- Which Key Setup
+require('settings/ultisnips')			-- Ultisnips Setup
+
+
 --require('settings/treesitter_context') -- Function / Class context under buffer line (doesn't need to be here ?)
 
 
@@ -26,6 +31,7 @@ require('settings/dap')					-- Settings for DAP
 require('keymappings/nvim_tree')		-- Keybindings for NvimTree
 require('keymappings/telescope')		-- Keybindings for telescope
 require('keymappings/kommentary')		-- Keybindings for Kommentary
+require('keymappings/trouble')			-- Keybindings for Trouble
 require('keymappings/dap')				-- Keybindings for DAP
 
 
